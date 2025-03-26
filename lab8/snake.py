@@ -1,6 +1,5 @@
 import pygame
 import random
-from enum import Enum
 from collections import namedtuple
 
 pygame.init()
@@ -15,12 +14,6 @@ WHITE = (255, 255, 255)
 BLOCK_SIZE = 20
 SPEED = 5
 
-class Direction(Enum):
-    RIGHT = 1
-    LEFT = 2
-    UP = 3
-    DOWN = 4
-
 Point = namedtuple('Point', 'x, y')
 
 class SnakeGame:
@@ -32,7 +25,7 @@ class SnakeGame:
         pygame.display.set_caption("Snake Game")
         self.clock = pygame.time.Clock()
 
-        self.direction = Direction.RIGHT
+        self.direction = "RIGHT"
         self.head = Point(self.w // 2, self.h // 2)
         self.snake = [
             self.head,
@@ -61,14 +54,14 @@ class SnakeGame:
                 pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and self.direction != Direction.RIGHT:
-                    self.direction = Direction.LEFT
-                elif event.key == pygame.K_RIGHT and self.direction != Direction.LEFT:
-                    self.direction = Direction.RIGHT
-                elif event.key == pygame.K_UP and self.direction != Direction.DOWN:
-                    self.direction = Direction.UP
-                elif event.key == pygame.K_DOWN and self.direction != Direction.UP:
-                    self.direction = Direction.DOWN
+                if event.key == pygame.K_LEFT and self.direction != "RIGHT":
+                    self.direction = "LEFT"
+                elif event.key == pygame.K_RIGHT and self.direction != "LEFT":
+                    self.direction = "RIGHT"
+                elif event.key == pygame.K_UP and self.direction != "DOWN":
+                    self.direction = "UP"
+                elif event.key == pygame.K_DOWN and self.direction != "UP":
+                    self.direction = "DOWN"
 
         self._move(self.direction)
         self.snake.insert(0, self.head)
@@ -101,13 +94,13 @@ class SnakeGame:
         x = self.head.x
         y = self.head.y
 
-        if direction == Direction.RIGHT:
+        if direction == "RIGHT":
             x += BLOCK_SIZE
-        elif direction == Direction.LEFT:
+        elif direction == "LEFT":
             x -= BLOCK_SIZE
-        elif direction == Direction.UP:
+        elif direction == "UP":
             y -= BLOCK_SIZE
-        elif direction == Direction.DOWN:
+        elif direction == "DOWN":
             y += BLOCK_SIZE
 
         self.head = Point(x, y)
